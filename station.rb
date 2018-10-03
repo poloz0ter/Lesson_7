@@ -37,7 +37,11 @@ class Station
   end
 
   def valid?
-    validate!
+    begin
+      validate!
+    rescue
+     return false
+    end
     true
   end
 

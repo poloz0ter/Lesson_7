@@ -55,14 +55,14 @@ class Train
   end
 
   def go_forward
-    return puts "Это последняя станция" unless next_station
+    raise "Это последняя станция" if current_station == @route.stations.last
     current_station.send_train(self)
     @station_index += 1
     current_station.take_train(self)
   end
 
   def go_backward
-    return puts "Это первая станция" unless previous_station
+    raise "Это первая станция" if current_station == @route.stations.first
     current_station.send_train(self)
     @station_index -= 1
     current_station.take_train(self)
@@ -73,7 +73,11 @@ class Train
   end
 
   def valid?
-    validate!
+    begin
+      validate!
+    rescue
+     return false
+    end
     true
   end
 
@@ -88,8 +92,7 @@ class Train
   end
 
   def validate!
-    raise 'Некорректный номер' if number.nil? || number.empty?
     raise 'Неверный формат номера' if number !~ NUMBER
-    false
+    raise 'Некорректный номер' if number.nil? || number.empty?
   end
 end

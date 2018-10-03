@@ -219,11 +219,15 @@ class Interface
   end
 
   def train_forward
-    @trains[@our_train_indx].go_forward
+      @trains[@our_train_indx].go_forward
+    rescue StandardError => e
+      puts e.message
   end
 
   def train_backward
-    @trains[@our_train_indx].go_backward
+      @trains[@our_train_indx].go_backward
+    rescue StandardError => e
+      puts e.message
   end
 
   def show_stations

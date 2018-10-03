@@ -18,7 +18,6 @@ class Route
   end
 
   def delete_station(station)
-    return puts "Вы не можете удалить первую или последнюю станцию" while station == @stations.first || station == @stations.last
     @stations.delete(station)
   end
 
@@ -27,7 +26,11 @@ class Route
   end
 
   def valid?
-    validate!
+    begin
+      validate!
+    rescue
+     return false
+    end
     true
   end
 
